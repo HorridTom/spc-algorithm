@@ -18,19 +18,21 @@ public class SPCAccumulator extends Accumulator {
 	 */
 	private boolean limits = false;
 	public int maxIterations;
+	public int breakPadding;
 	int index = -1;
 	boolean firstPass = true;
 	SPCCalculator spcCalc;
 	boolean isNull = false;
 	Vector<Double> vals = new Vector<Double>();
 
-	public SPCAccumulator(boolean limits, int maxIts) {
+	public SPCAccumulator(boolean limits, int maxIts, int padding) {
 		this.limits = limits;
 		this.maxIterations = maxIts;
+		this.breakPadding = padding;
 	}
 
 	public SPCAccumulator(boolean limits) {
-		this(limits, 0);
+		this(limits, 0, 5);
 	}
 
 	public void start() {
@@ -42,7 +44,7 @@ public class SPCAccumulator extends Accumulator {
 		// and it can calculate the limits according to the algorithm.
 		if (firstPass) {
 			firstPass = false;
-			spcCalc = new SPCCalculator(vals, maxIterations);
+			spcCalc = new SPCCalculator(vals, maxIterations, breakPadding);
 			spcCalc.calculate();
 		}
 	}

@@ -60,14 +60,14 @@ public class SPCIO {
 
 	}
 
-	public static Vector<Double[]> analyseCsv(String fName, int maxIterations) throws DataException {
+	public static Vector<Double[]> analyseCsv(String fName, int maxIterations, int breakPadding) throws DataException {
 		SPCIO testIO = new SPCIO();
 		testIO.loadCsv(fName);
 		testIO.makeVector();
 
 		System.out.println("Begin Accumulator");
 
-		SPCAccumulator spca = new SPCAccumulator(false, maxIterations);
+		SPCAccumulator spca = new SPCAccumulator(false, maxIterations, breakPadding);
 
 		//First pass - load data into vals, pass to SPCCalculator spcCalc
 		spca.start();
@@ -89,7 +89,7 @@ public class SPCIO {
 
 		System.out.println("Begin Accumulator");
 
-		SPCAccumulator spcm = new SPCAccumulator(true, maxIterations);
+		SPCAccumulator spcm = new SPCAccumulator(true, maxIterations, breakPadding);
 
 		//First pass - load data into vals, pass to SPCCalculator spcCalc
 		spcm.start();
@@ -137,7 +137,7 @@ public class SPCIO {
 	}
 
 	public static Vector<Double[]> analyseCsv(String fName) throws DataException {
-		return analyseCsv(fName, 0);
+		return analyseCsv(fName, 0, 5);
 	}
 
 	public static void saveSpcToCsv(String fName, String label, int maxIterations, Vector<Double[]> v) {
@@ -188,16 +188,16 @@ public class SPCIO {
 	}
 
 
-	public static void csvSPC(String fName, int maxIterations) throws DataException {
+	public static void csvSPC(String fName, int maxIterations, int breakPadding) throws DataException {
 
 		Vector<Double[]> vOut = new Vector<Double[]>();
-		vOut = analyseCsv(fName, maxIterations);
+		vOut = analyseCsv(fName, maxIterations, breakPadding);
 		saveSpcToCsv(fName, "", maxIterations, vOut);
 
 	}
 
 	public static void csvSPC(String fName) throws DataException {
-		csvSPC(fName, 0);
+		csvSPC(fName, 0, 5);
 	}
 
 	public static boolean equalVectors (Vector<Double[]> u, Vector<Double[]> v) {
@@ -236,7 +236,7 @@ public class SPCIO {
 			nloops = 0;
 			while(!equalVectors(endResult, result)) {
 				nloops++;
-				result = analyseCsv(fileName, nloops);
+				result = analyseCsv(fileName, nloops, 5);
 				saveSpcToCsv(fileName, String.valueOf(nloops), nloops, result);
 			}
 			result = null;
