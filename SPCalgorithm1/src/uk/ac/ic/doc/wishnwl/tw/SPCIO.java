@@ -65,7 +65,7 @@ public class SPCIO {
 		testIO.loadCsv(fName);
 		testIO.makeVector();
 
-		System.out.println("Begin Accumulator");
+		//System.out.println("Begin Accumulator");
 
 		SPCAccumulator spca = new SPCAccumulator(false, maxIterations);
 
@@ -85,9 +85,9 @@ public class SPCIO {
 		}
 		spca.finish();
 
-		System.out.println("End Accumulator");
+		//System.out.println("End Accumulator");
 
-		System.out.println("Begin Accumulator");
+		//System.out.println("Begin Accumulator");
 
 		SPCAccumulator spcm = new SPCAccumulator(true, maxIterations);
 
@@ -107,7 +107,7 @@ public class SPCIO {
 		}
 		spcm.finish();
 
-		System.out.println("End Accumulator");
+		//System.out.println("End Accumulator");
 
 		//structure the output
 		int n = ret.size();
@@ -115,7 +115,7 @@ public class SPCIO {
 
 
 
-		System.out.println("Structure Output");
+		//System.out.println("Structure Output");
 		for (int i = 0; i < n; i++) {
 			Double[] vItem = new Double[3];
 			vItem[0] = testIO.csvVals.get(i)[0];
@@ -153,7 +153,7 @@ public class SPCIO {
 			saveName = fName.substring(0, fName.length() - 4) + "_" + label + "_OUT.csv";
 			writer = new CSVWriter(new FileWriter(saveName));
 			fOpen = true;
-			System.out.println("File Open: " + saveName);
+			//System.out.println("File Open: " + saveName);
 		}
 		catch(IOException e) {
 			e.getStackTrace();
@@ -165,7 +165,7 @@ public class SPCIO {
 		}
 
 	     if (fOpen == true) {try{
-	    	 System.out.println("Writing...");
+	    	 //System.out.println("Writing...");
 
 	    	 for (int j = 0; j < n; j++) {
 	    		 sOut[0] = String.valueOf(v.get(j)[0]);
@@ -176,7 +176,7 @@ public class SPCIO {
 	    	 }
 
 	    	 	writer.close();
-	    	 	System.out.println("File Closed.");
+	    	 	//System.out.println("File Closed.");
 	     	}
 	     	catch (IOException e) {
 	    	 	e.getStackTrace();
@@ -244,6 +244,7 @@ public class SPCIO {
 					result = analyseCsv(fileName, nloops);
 					saveSpcToCsv(fileName, String.valueOf(nloops), nloops, result);
 				}
+				System.out.println("Data in file " + fileName + " analysed in " + nloops + " stages.");
 			}
 			result = null;
 			endResult = null;
